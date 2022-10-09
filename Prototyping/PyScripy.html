@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+        <py-env>
+            - pandas
+            - paths:
+              - ./iris.csv
+        </py-env>
+    </head>
+    <body>
+        <h1>PyScript</h1>
+        <p id="csv"></p>
+        <py-script> 
+import pandas as pd
+import urllib.request
+from io import StringIO
+
+#url = "https://raw.githubusercontent.com/bluedack-space/AutoScience/main/Image/iris.csv"
+url = "./iris.csv"
+
+#Routine for reading the csv file on the Web
+def read_csv(url):
+    res = urllib.request.urlopen(url)
+    res = res.read().decode("utf-8")
+    df = pd.read_csv(StringIO(res) )
+    return df
+
+#Execute 
+#df=read_csv(url)
+df=pd.read_csv(url)
+csv=Element('csv')
+csv.write(df)
+        </py-script>
+</html>
